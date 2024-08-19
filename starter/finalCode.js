@@ -1,3 +1,5 @@
+// JC and Haziel
+
 const prompt = require('prompt-sync')();
 
 const gravityFactors = require('./utils/earthGravityFactors.js');
@@ -11,8 +13,6 @@ function showUserFactors(type, value) {
         results[planet] = parseFloat((gravityFactors[planet] * value).toFixed(2));
     }
 
-    // console.log("Your weight on this planet is ")
-    // const input = prompt(">> ");
     switch (type) {
         case "jump":
             measurementUnit = "cm";
@@ -31,24 +31,90 @@ function showUserFactors(type, value) {
     }
 
 }
+// showUserFactors(factorType, factorPlanets,factorUnit, factorValue)
+// console.log(`your ${factorType} is ${factorValue} ${factorUnit}) on ${unit} in ${factorPlanet})
 
 function getUserInput() {
-    console.log("Enter your measurement type ('jump' or 'weight' or 'pushups')");
-    const factorTypes = ['jump', 'weight', 'pushups'];
-    const type = prompt(">>")
+    let factorTypes = "pushups";
+    let factorSystems;
+
+    // console.log("Enter your measurement type ('jump' or 'weight' or 'pushups')");
+
+    // what type is the user inputting?
+    // const factorTypes = ['jump', 'weight', 'pushups'];
+    // const type = prompt(">>")
 
 
-    for (let i = 0; i < factorTypes.length - 1; i++) {
-        while (true) {
-            isMatch = false;
+    while (true) {
+        const validWords = ['jump', 'weight', 'pushups'];
+        console.log("Enter your measurement type ('jump' or 'weight' or 'pushups')");
+        const type = prompt(">>")
+        let isMatch = false;
+        for (let i = 0; i < validWords.length; i++) {
             if (
-                type.trim().toLowerCase() === factorTypes[i]) { match = true; }
+                type.trim().toLowerCase() === validWords[i]) {
+                match = true;
+                break;
+            }
+            if (isMatch) {
+                break;
+            }
             else {
-                console.log("try again");
+                console.error("try again");
+            }
+        }
+        break;
+    }
+
+    while (true) {
+        console.log("What system would you like, ('Metric' or 'Imperial')");
+        const typeSystems = prompt(">>");
+        if (!isNaN(typeSystems) && 4 > factorSystems > 0) {
+            switch (typeSystems) {
+                case "1":
+                    factorSystems = "metric";
+                    break;
+                case "2":
+                    factorySystems = "imperial";
+                    break;
+                default:
+                    break;
             }
             break;
+        } else {
+            console.error("Please enter correctly");
         }
+
     }
+
+    // let facorUnit = "reps"
+    // if (factorSystems === "metric") {
+    // if (factorTypes === "weight"){
+    // 
+
+    // while(true) {
+    // if (factorTypes !== "pushups") { 
+    // switch
+    // }
+    //
+    //
+    //
+
+
+    // console.log("What system would you like to use? ('Metric' or 'Imperial')?");
+    // const factorSystems = ['Metric', 'Imperial'];
+    // const typeSystems = prompt(">>")
+
+
+    // while (true) {
+    //     isMatch = false;
+    //     if (
+    //         type.trim().toLowerCase() === factorSystems[i]) { match = true; }
+    //     else {
+    //         console.log("try again");
+    //     }
+    //     break;
+    // }
 
     // console.log("Metirc or Imperial?");
     // const factorSystems = prompt(">>").trim().toLowerCase();
@@ -60,15 +126,16 @@ function getUserInput() {
 
 
     const userInput = prompt(">> ");
-    console.log("enter the value (as a number)");
-    const valueInput = prompt(">> ")
+    // console.log("enter the value (as a number)");
+    // const valueInput = prompt(">> ");
     // const valueInput = prompt(">> ");
     // console.log(`Your ${type} is:`, userInput);
 
     // console.log(`Your ${type} on other planets is:`);
-    showUserFactors(userInput, valueInput);
+    showUserFactors(factorTypes, factorSystems);
 }
-getUserInput();
+// getUserInput();
 global.showUserFactors = showUserFactors;
-global.getUserInput = getUserInput
+global.getUserInput = getUserInput;
+getUserInput();
 
